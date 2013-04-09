@@ -2,148 +2,252 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum Move
+
+namespace Player
 {
-    LEFT,
-    RIGHT,
-    JUMP,
-    GRAVITY
-}
+    using CollPair = Pair<Collision, CollisionType>;
+    using GOPair = Pair<GameObject, CollisionType>;
 
-public class Player : MonoBehaviour {
-    public string   JumpKey         = "x";
-    public string   LeftKey         = "left";
-    public string   RightKey        = "right";
-
-    public float    movespeedCap    = 0.2f;
-    public float    movespeed       = 0.005f;
-    public float    friction        = 0.10f;
-    public float    xSpeed    		= 0;
-    public float    ySpeed    		= 0;
-    public float    gravity         = 0.01f;
-    public float    fallCap         = -0.2f;
-
-    private bool    isOnGround      = false;
-
-    private ArrayList movement      = new ArrayList();
-    private ArrayList collisions    = new ArrayList();
-
-    public Transform playerObject;
-	
-	void OnCollisionEnter(Collision other)
-	{
-		//For box colliders only, the contact points are the corners of the box
-		Debug.Log("Collision occurred");
-		
-		collisions.Add(other);
-	}
-
-    void Update()
+    public enum Move
     {
-		ResolveCollisions();
-        ApplyGravity();
-        CheckKeys();
-        MovePlayer();
+        LEFT,
+        RIGHT,
+        JUMP
     }
 
-    void CheckKeys()
+    public enum CollisionType
     {
-        if (Input.GetKey(LeftKey) && !Input.GetKey(RightKey))
+        FLOOR,
+        SIDE,
+        CEILING
+    }
+
+    public class Pair<T1, T2>
+    {
+        private T1 left;
+        private T2 right;
+
+        public Pair(T1 l, T2 r)
         {
-            movement.Add(Move.LEFT);
+            this.left = l;
+            this.right = r;
         }
-        if (Input.GetKey(RightKey) && !Input.GetKey(LeftKey))
+
+        public T1 getLeft()
         {
-            movement.Add(Move.RIGHT);
+            return left;
+        }
+
+        public T2 getRight()
+        {
+            return right;
+        }
+
+        public void setLeft(T1 l)
+        {
+            this.left = l;
+        }
+
+        public void setRight(T2 r)
+        {
+            this.right = r;
         }
     }
 
-    void ApplyGravity()
-    {
-        if (!isOnGround && ySpeed > fallCap)
-        {
-            ySpeed -= gravity;
-        }
-    }
 
-    void MovePlayer()
+
+    public class Player : MonoBehaviour
     {
-        foreach (Move m in movement)
+        public string JumpKey = "x";
+        public string LeftKey = "left";
+        public string RightKey = "right";
+
+        public float movespeedCap = 0.2f;
+        public float movespeed = 0.005f;
+        public float friction = 0.10f;
+        public float xSpeed = 0;
+        public float ySpeed = 0;
+        public float gravity = 0.01f;
+        public float fallCap = -0.2f;
+
+        private bool isOnGround = false;
+
+        private ArrayList movement = new ArrayList(); //Contains Move.enum entries
+        private ArrayList collisions = new ArrayList(); //Contains Pair<Collision, enum CollisionType> entries, aliased as CollPair
+        private ArrayList inContactWith = new ArrayList(); //Contains Pair<GameObject, enum CollisionType> entries, aliased as GOPair
+
+        public Transform playerObject;
+
+        void OnCollisionEnter(Collision other)
         {
-            switch (m)
+            //For box colliders only, the contact points are the corners of the box
+            Debug.Log("Collision occurred with " + other.gameObject.name);
+            //Determine collision type
+            foreach (ContactPoint cp in other.contacts)
             {
-                case Move.LEFT:
-                    if(xSpeed > -movespeedCap)
-                    {
-                        if (xSpeed > 0)
-                        {
-                            xSpeed -= friction*2;
-                        }
-                        //Debug.Log("Left pressed");
-                        xSpeed -= movespeed;
-                    }
+                //Let's only be concerned with the front-facing collisions
+                if (cp.point.z < 0)
+                {
+                    continue;
+                }
+                //Now we determine the type of collision.
+
+                //Floor collision
+                if (cp.point.y < transform.position.y)
+                {
+                    isOnGround = true;
+                    ySpeed = 0;
+                    float trans = cp.otherCollider.bounds.max.y - cp.point.y;
+                    playerObject.Translate(new Vector3(0f, trans, 0f));
                     break;
-                case Move.RIGHT:
-                    if (xSpeed < movespeedCap)
-                    {
-                        if (xSpeed < 0)
-                        {
-                            xSpeed += friction*2;
-                        }
-                        //Debug.Log("Right pressed");
-                        xSpeed += movespeed;
-                    }
-                    break;
+                }
+            }
+            CollPair p = new CollPair(other, CollisionType.FLOOR);
+            collisions.Add(p);
+            inContactWith.Add(other.gameObject);
+        }
+
+        void OnCollisionExit(Collision other)
+        {
+            Debug.Log("No longer colliding with " + other.gameObject.name);
+            inContactWith.Remove(other.gameObject);
+
+            if (inContactWith.Count == 0)
+            {
+                isOnGround = false;
             }
         }
 
-        //Movement friction
-        if (!movement.Contains(Move.LEFT) && !movement.Contains(Move.RIGHT))
+        void Update()
         {
-            //Debug.Log("Entered into friction");
-            if (xSpeed > 0)
+            ResolveCollisions();
+            ApplyGravity();
+            CheckKeys();
+            MovePlayer();
+        }
+
+        void CheckKeys()
+        {
+            if (Input.GetKey(LeftKey) && !Input.GetKey(RightKey))
             {
-                xSpeed -= friction;
-                //Just stahp if we've gone negative
-                if (xSpeed < 0)
-                    xSpeed = 0;
+                movement.Add(Move.LEFT);
             }
-            if (xSpeed < 0)
+            if (Input.GetKey(RightKey) && !Input.GetKey(LeftKey))
             {
-                xSpeed += friction;
-                //Just stahp if we've gone positive
+                movement.Add(Move.RIGHT);
+            }
+        }
+
+        void ApplyGravity()
+        {
+            if (!isOnGround && ySpeed > fallCap)
+            {
+                ySpeed -= gravity;
+            }
+        }
+
+        void MovePlayer()
+        {
+            foreach (Move m in movement)
+            {
+                switch (m)
+                {
+                    case Move.LEFT:
+                        if (xSpeed > -movespeedCap)
+                        {
+                            if (xSpeed > 0)
+                            {
+                                xSpeed -= friction * 2;
+                            }
+                            //Debug.Log("Left pressed");
+                            xSpeed -= movespeed;
+                        }
+                        break;
+                    case Move.RIGHT:
+                        if (xSpeed < movespeedCap)
+                        {
+                            if (xSpeed < 0)
+                            {
+                                xSpeed += friction * 2;
+                            }
+                            //Debug.Log("Right pressed");
+                            xSpeed += movespeed;
+                        }
+                        break;
+                }
+            }
+
+            //Movement friction
+            if (!movement.Contains(Move.LEFT) && !movement.Contains(Move.RIGHT))
+            {
+                //Debug.Log("Entered into friction");
                 if (xSpeed > 0)
-                    xSpeed = 0;
+                {
+                    xSpeed -= friction;
+                    //Just stahp if we've gone negative
+                    if (xSpeed < 0)
+                        xSpeed = 0;
+                }
+                if (xSpeed < 0)
+                {
+                    xSpeed += friction;
+                    //Just stahp if we've gone positive
+                    if (xSpeed > 0)
+                        xSpeed = 0;
+                }
+            }
+            movement.Clear();
+            playerObject.Translate(new Vector3(xSpeed, ySpeed, 0f));
+        }
+
+        void ResolveCollisions()
+        {
+            foreach (Pair other in collisions)
+            {
+                //foreach(ContactPoint cp in other.contacts)
+                //{
+                //    //Let's only be concerned with the front-facing collisions
+                //    if(cp.point.z < 0)
+                //    {
+                //        continue;
+                //    }
+                //    //Now we determine the type of collision.
+
+                //    //Floor collision
+                //    if(cp.point.y < transform.position.y)
+                //    {
+                //        isOnGround = true;
+                //        ySpeed = 0;
+                //        float trans = cp.otherCollider.bounds.max.y - cp.point.y;
+                //        playerObject.Translate(new Vector3(0f, trans, 0f));
+                //        break;
+                //    }
+                //}
+            }
+            collisions.Clear();
+        }
+
+        public CollisionType determineCollisionType(Collision col)
+        {
+            foreach (ContactPoint cp in col.contacts)
+            {
+                //Let's only be concerned with the front-facing collisions
+                if (cp.point.z < 0)
+                {
+                    continue;
+                }
+                //Now we determine the type of collision.
+
+                //Floor collision
+                if (cp.point.y < transform.position.y)
+                {
+                    isOnGround = true;
+                    ySpeed = 0;
+                    float trans = cp.otherCollider.bounds.max.y - cp.point.y;
+                    playerObject.Translate(new Vector3(0f, trans, 0f));
+                    break;
+                }
             }
         }
-        movement.Clear();
-        playerObject.Translate(new Vector3(xSpeed, ySpeed, 0f));
-    }
-
-    void ResolveCollisions()
-    {
-        foreach (Collision other in collisions)
-        {
-			foreach(ContactPoint cp in other.contacts)
-			{
-				//Let's only be concerned with the front-facing collisions
-				if(cp.point.z < 0)
-				{
-					continue;
-				}
-				//Now we determine the type of collision.
-				
-				//Floor collision
-				if(cp.point.y < transform.position.y)
-				{
-					isOnGround = true;
-					ySpeed = 0;
-					float trans = cp.otherCollider.bounds.max.y - cp.point.y;
-					playerObject.Translate(new Vector3(0f, trans, 0f));
-					break;
-				}
-			}
-        }
-        collisions.Clear();
     }
 }
