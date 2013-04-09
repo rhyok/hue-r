@@ -2,12 +2,12 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Player.cs">
     <Files>
-      <File FileName="Assets\Player.cs" Line="29" Column="55" />
+      <File FileName="Assets\Player.cs" Line="118" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="E:\Ryan\My Documents\School\13\SP\CSE 198\Git Repo\hue-r\Week1\Assets\Player.cs" line="35" />
+      <Breakpoint file="E:\Ryan\My Documents\School\13\SP\CSE 198\Git Repo\hue-r\Week1\Assets\Player.cs" line="42" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
