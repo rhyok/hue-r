@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 namespace Player
 {
-    using CollPair = Pair<Collision, CollisionType>;
     using GOPair = Pair<GameObject, CollisionType>;
 
     public enum Move
@@ -18,7 +17,8 @@ namespace Player
     public enum CollisionType
     {
         FLOOR,
-        SIDE,
+        LEFT,
+        RIGHT,
         CEILING
     }
 
@@ -73,7 +73,7 @@ namespace Player
         private bool isOnGround = false;
 
         private ArrayList movement = new ArrayList(); //Contains Move.enum entries
-        private ArrayList collisions = new ArrayList(); //Contains Pair<Collision, enum CollisionType> entries, aliased as CollPair
+        private ArrayList collisions = new ArrayList(); //Contains Collision type objects
         private ArrayList inContactWith = new ArrayList(); //Contains Pair<GameObject, enum CollisionType> entries, aliased as GOPair
 
         public Transform playerObject;
@@ -82,28 +82,8 @@ namespace Player
         {
             //For box colliders only, the contact points are the corners of the box
             Debug.Log("Collision occurred with " + other.gameObject.name);
-            //Determine collision type
-            foreach (ContactPoint cp in other.contacts)
-            {
-                //Let's only be concerned with the front-facing collisions
-                if (cp.point.z < 0)
-                {
-                    continue;
-                }
-                //Now we determine the type of collision.
 
-                //Floor collision
-                if (cp.point.y < transform.position.y)
-                {
-                    isOnGround = true;
-                    ySpeed = 0;
-                    float trans = cp.otherCollider.bounds.max.y - cp.point.y;
-                    playerObject.Translate(new Vector3(0f, trans, 0f));
-                    break;
-                }
-            }
-            CollPair p = new CollPair(other, CollisionType.FLOOR);
-            collisions.Add(p);
+            collisions.Add(other);
             inContactWith.Add(other.gameObject);
         }
 
@@ -202,52 +182,22 @@ namespace Player
 
         void ResolveCollisions()
         {
-            foreach (Pair other in collisions)
+            foreach (Collision c in collisions)
             {
-                //foreach(ContactPoint cp in other.contacts)
-                //{
-                //    //Let's only be concerned with the front-facing collisions
-                //    if(cp.point.z < 0)
-                //    {
-                //        continue;
-                //    }
-                //    //Now we determine the type of collision.
-
-                //    //Floor collision
-                //    if(cp.point.y < transform.position.y)
-                //    {
-                //        isOnGround = true;
-                //        ySpeed = 0;
-                //        float trans = cp.otherCollider.bounds.max.y - cp.point.y;
-                //        playerObject.Translate(new Vector3(0f, trans, 0f));
-                //        break;
-                //    }
-                //}
+                foreach (ContactPoint cp in c.contacts)
+                {
+                    //Determine collision type
+                    if (cp.point.y < 0)
+                    {
+                        isOnGround = true;
+                        ySpeed = 0;
+                        float trans = cp.otherCollider.bounds.max.y - cp.point.y;
+                        playerObject.Translate(new Vector3(0f, trans, 0f));
+                        break;
+                    }
+                }
             }
             collisions.Clear();
-        }
-
-        public CollisionType determineCollisionType(Collision col)
-        {
-            foreach (ContactPoint cp in col.contacts)
-            {
-                //Let's only be concerned with the front-facing collisions
-                if (cp.point.z < 0)
-                {
-                    continue;
-                }
-                //Now we determine the type of collision.
-
-                //Floor collision
-                if (cp.point.y < transform.position.y)
-                {
-                    isOnGround = true;
-                    ySpeed = 0;
-                    float trans = cp.otherCollider.bounds.max.y - cp.point.y;
-                    playerObject.Translate(new Vector3(0f, trans, 0f));
-                    break;
-                }
-            }
         }
     }
 }
