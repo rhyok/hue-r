@@ -70,7 +70,7 @@ namespace Player
         public float gravity = 0.01f;
         public float fallCap = -0.2f;
 
-        private bool isOnGround = false;
+        public bool isOnGround = false;
 
         private ArrayList movement = new ArrayList(); //Contains Move.enum entries
         private ArrayList collisions = new ArrayList(); //Contains Collision type objects

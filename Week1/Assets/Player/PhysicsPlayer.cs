@@ -8,7 +8,7 @@ public class PhysicsPlayer : MonoBehaviour
     public Vector3 acceleration;
     public Vector3 jumpVelocity;
 
-    private bool touchingPlatform;
+    public bool touchingPlatform;
 
     void Update()
     {
@@ -35,11 +35,13 @@ public class PhysicsPlayer : MonoBehaviour
         //{
         //    Debug.DrawRay(contact.point, contact.normal * 10.0f, Color.red, 1200.0f, true);
         //}
+        Debug.Log("Touching " + collision.collider.name);
         touchingPlatform = true;
     }
 
     void OnCollisionExit(Collision collision)
     {
+        Debug.Log("No longer touching " + collision.collider.name);
         touchingPlatform = false;
     }
 }
