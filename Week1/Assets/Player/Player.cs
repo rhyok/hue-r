@@ -187,7 +187,7 @@ namespace Player
                 foreach (ContactPoint cp in c.contacts)
                 {
                     //Determine collision type
-                    if (cp.point.y < 0)
+                    if (cp.point.y < playerObject.transform.position.y)
                     {
                         isOnGround = true;
                         ySpeed = 0;
