@@ -44,8 +44,12 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Level\Trigger Scripts\GottaGoFast.cs" />
-     <Compile Include="Assets\Level\Trigger Scripts\trigger_EndLevel.cs" />
+     <Compile Include="Assets\Levels\Level 1\Trigger Scripts\GottaGoFast1.cs" />
+     <Compile Include="Assets\Levels\Level 1\Trigger Scripts\trigger_EndLevel1.cs" />
+     <Compile Include="Assets\Levels\Level 2\Trigger Scripts\GottaGoFast2.cs" />
+     <Compile Include="Assets\Levels\Level 2\Trigger Scripts\trigger_EndLevel2.cs" />
+     <Compile Include="Assets\Levels\Level 3\Trigger Scripts\GottaGoFast3.cs" />
+     <Compile Include="Assets\Levels\Level 3\Trigger Scripts\trigger_EndLevel3.cs" />
      <Compile Include="Assets\Player\PhysicsPlayer.cs" />
      <Compile Include="Assets\Player\Player.cs" />
   </ItemGroup>
