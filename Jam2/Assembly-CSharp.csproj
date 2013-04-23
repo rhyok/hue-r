@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{C067C4B2-3EDC-36B6-ECDC-BEEF8D25892A}</ProjectGuid>
+	<ProjectGuid>{5FEAE0B8-27CD-96FF-23D9-A9E5F4F3AB12}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -44,15 +44,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Level\AnimatedTexture.cs" />
-     <Compile Include="Assets\Levels\Level 1\Trigger Scripts\GottaGoFast1.cs" />
-     <Compile Include="Assets\Levels\Level 1\Trigger Scripts\trigger_EndLevel1.cs" />
-     <Compile Include="Assets\Levels\Level 2\Trigger Scripts\GottaGoFast2.cs" />
-     <Compile Include="Assets\Levels\Level 2\Trigger Scripts\trigger_EndLevel2.cs" />
-     <Compile Include="Assets\Levels\Level 3\Trigger Scripts\GottaGoFast3.cs" />
-     <Compile Include="Assets\Levels\Level 3\Trigger Scripts\trigger_EndLevel3.cs" />
-     <Compile Include="Assets\Player\PhysicsPlayer.cs" />
-     <Compile Include="Assets\Player\Player.cs" />
+     <Compile Include="Assets\Game.cs" />
+     <Compile Include="Assets\GameGenerator.cs" />
+     <Compile Include="Assets\GeneratorRules.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
