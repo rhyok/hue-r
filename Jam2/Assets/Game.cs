@@ -44,9 +44,9 @@ public class Game {
     public int CPURequirement;      
     public int GPURequirement;      
     public int RAMRequirement;
-    public int HDDRequirement;
-    public string OSRequirement;
-    public int InputRequirement;
+    //public int HDDRequirement;
+    //public string OSRequirement;
+    //public int InputRequirement;
     public NetworkType networkRequirement;
 
     //Scalars if computer exceeds requirement
@@ -55,5 +55,5 @@ public class Game {
     public int RAMScalar;
     public int HDDScalar;
     public int InputScalar;
-    public int outputScalar;
+    public int OutputScalar;
 }
