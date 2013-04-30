@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Random;
-using System.Array;
 using System;
 
 public class GameGenerator : MonoBehaviour {
