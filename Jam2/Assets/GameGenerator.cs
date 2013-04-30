@@ -141,15 +141,46 @@ public class GameGenerator : MonoBehaviour {
         Game game = new Game();
 
         //Genre
-        Array genres = Enum.GetValues(typeof(Genre));
+        System.Array genres = Enum.GetValues(typeof(Genre));
         game.genre = (Genre)genres.GetValue(rand.Next(genres.Length));
 
         //Network
-        Array networkTypes = Enum.GetValues(typeof(NetworkType));
+        System.Array networkTypes = Enum.GetValues(typeof(NetworkType));
         game.networkRequirement = (NetworkType)networkTypes.GetValue(rand.Next(networkTypes.Length));
 
         //Era
         game.era = currentEra;
+
+        //Game name
+        string name = "";
+        name += (string)phrase1[rand.Next(phrase1.Count)] + (string)phrase2[rand.Next(phrase2.Count)];
+        switch (game.genre)
+        {
+            case Genre.RTS:
+                name += (string)rtsSuffixes[rand.Next(rtsSuffixes.Count)];
+                break;
+            case Genre.FPS:
+                name += (string)fpsSuffixes[rand.Next(fpsSuffixes.Count)];
+                break;
+            case Genre.RPG:
+                name += (string)rpgSuffixes[rand.Next(rpgSuffixes.Count)];
+                break;
+            case Genre.SIM:
+                name += (string)simSuffixes[rand.Next(simSuffixes.Count)];
+                break;
+            case Genre.FIGHING:
+                name += (string)fightSuffixes[rand.Next(fightSuffixes.Count)];
+                break;
+            case Genre.RACING:
+                name += (string)racingSuffixes[rand.Next(racingSuffixes.Count)];
+                break;
+            case Genre.CASUAL:
+                name += (string)casualSuffixes[rand.Next(casualSuffixes.Count)];
+                break;
+            default:
+                break;
+        }
+       
 
         return null;
     }
