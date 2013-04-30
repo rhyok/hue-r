@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using System.Random;
+using System.Array;
+using System;
 
 public class GameGenerator : MonoBehaviour {
     ArrayList phrase1 = new ArrayList();
@@ -14,6 +17,7 @@ public class GameGenerator : MonoBehaviour {
     ArrayList casualSuffixes = new ArrayList();
 
     Era currentEra;
+    System.Random rand;
 
     void Start()
     {
@@ -130,5 +134,25 @@ public class GameGenerator : MonoBehaviour {
         casualSuffixes.Add(" Tennis");
         casualSuffixes.Add(" Basketball");
         casualSuffixes.Add(" Soccer");
+
+        rand = new System.Random();
+    }
+
+    public Game generateGame()
+    {
+        Game game = new Game();
+
+        //Genre
+        Array genres = Enum.GetValues(typeof(Genre));
+        game.genre = (Genre)genres.GetValue(rand.Next(genres.Length));
+
+        //Network
+        Array networkTypes = Enum.GetValues(typeof(NetworkType));
+        game.networkRequirement = (NetworkType)networkTypes.GetValue(rand.Next(networkTypes.Length));
+
+        //Era
+        game.era = currentEra;
+
+        return null;
     }
 }

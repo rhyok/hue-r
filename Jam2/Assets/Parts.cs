@@ -22,8 +22,7 @@ public class CPU : Part
 
 public class GPU : Part
 {
-    public int clockSpeed;
-    public int numberOfCores;
+    public int flops;
     public int memory;
 }
 

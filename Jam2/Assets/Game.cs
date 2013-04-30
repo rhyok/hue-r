@@ -20,7 +20,8 @@ public enum NetworkType
     CABLE,
     T1,
     T3,
-    FIBEROPTIC
+    FIBEROPTIC,
+    QUANTUM
 }
 
 public enum Era
@@ -29,13 +30,15 @@ public enum Era
     E1990,
     E2000,
     E2010,
-    E2020
+    E2020,
+    E2030
 }
 
 public class Game {
 
     public string name;
     public Genre genre;
+    public Era era;
 
     //Minimum requirement for game to run
     public int CPURequirement;      
