@@ -200,8 +200,9 @@ public class GameGenerator : MonoBehaviour {
             NetworkType.QUANTUM;
 
         //Requirements
-        //game.CPURequirement = ;
-        //game.GPURequirement = 
+        game.CPURequirement = 10;
+        game.GPURequirement = 1 * 1;
+        //game.RAMRequirement = 
 
         return null;
     }
