@@ -57,7 +57,85 @@ public class Motherboard
     public PowerSupply pSupply;
     public Chassis chassis;
 
+    public bool plugIn(Part part)
+    {
+        bool returnValue = false;
 
+        if (part.GetType() == typeof(CPU))
+        {
+            if (part.partInterface == CPUInterface)
+            {
+                this.cpu = (CPU) part;
+                returnValue = true;
+            }
+        }
+        if (part.GetType() == typeof(GPU))
+        {
+            if (part.partInterface == GPUInterface)
+            {
+                this.gpu = (GPU)part;
+                returnValue = true;
+            }
+        }
+        if (part.GetType() == typeof(HDD))
+        {
+            if (part.partInterface == HDDInterface)
+            {
+                this.hdd = (HDD)part;
+                returnValue = true;
+            }
+        }
+        if (part.GetType() == typeof(RAM))
+        {
+            if (part.partInterface == RAMInterface)
+            {
+                this.ram = (RAM)part;
+                returnValue = true;
+            }
+        }
+        if (part.GetType() == typeof(CompInput))
+        {
+            if (part.partInterface == compInputInterface)
+            {
+                this.input = (CompInput)part;
+                returnValue = true;
+            }
+        }
+        if (part.GetType() == typeof(CompOutput))
+        {
+            if (part.partInterface == compOutputInterface)
+            {
+                this.output = (CompOutput)part;
+                returnValue = true;
+            }
+        }
+        if (part.GetType() == typeof(CompNetwork))
+        {
+            if (part.partInterface == networkInterface)
+            {
+                this.network = (CompNetwork) part;
+                returnValue = true;
+            }
+        }
+        if (part.GetType() == typeof(PowerSupply))
+        {
+            if (part.partInterface == powerInterface)
+            {
+                this.pSupply = (PowerSupply)part;
+                returnValue = true;
+            }
+        }
+        if (part.GetType() == typeof(Chassis))
+        {
+            if (part.partInterface == formFactor)
+            {
+                this.chassis = (Chassis)part;
+                returnValue = true;
+            }
+        }
+
+        return returnValue;
+    }
 }
 
 public abstract class Part 

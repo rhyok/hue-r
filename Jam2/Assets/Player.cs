@@ -13,7 +13,16 @@ public enum PlayerGUIState
 public class Player : MonoBehaviour 
 {
     public Motherboard mobo;
-    public Part viewPart;
+    public float funds;
+    public object viewPart;
+    public ArrayList storeFront;
+
+    private Vector2 scrollPos;
+
+    void Start()
+    {
+        funds = 3000.0f;
+    }
 
     void OnGUI()
     {
@@ -44,7 +53,7 @@ public class Player : MonoBehaviour
         }
         if (viewPart != null)
         {
-            renderPartStatistics(200, 10, 300, 200, viewPart);
+            renderPartStatistics(250, 10, 300, 400, viewPart);
         }
     }
 
@@ -64,7 +73,7 @@ public class Player : MonoBehaviour
         renderComputerStats(left + 10, top + 25, width - 20, textAreaHeight, textAreaMargin, mobo);
     }
 
-    void renderPartStatistics(float left, float top, float width, float height, Part part)
+    void renderPartStatistics(float left, float top, float width, float height, object part)
     {
         float BUTTON_WIDTH = 20f;
         string contents = "";
@@ -74,6 +83,22 @@ public class Player : MonoBehaviour
             viewPart = null;
         }
 
+        if(part.GetType() == typeof(Motherboard))
+        {
+            Motherboard mobo = (Motherboard) part;
+            contents = mobo.name + "\n" +
+                        "Form Factor: " + mobo.formFactor + "\n" + 
+                        "Interfaces:\n" +
+                        "   CPU: " + mobo.CPUInterface + "\n" +
+                        "   GPU: " + mobo.GPUInterface + "\n" +
+                        "   HDD: " + mobo.HDDInterface + "\n" +
+                        "   RAM: " + mobo.RAMInterface + "\n" +
+                        "   Input: " + mobo.compInputInterface + "\n" +
+                        "   Output: " + mobo.compOutputInterface + "\n" +
+                        "   Network: " + mobo.networkInterface + "\n" + 
+                        "   Power Supply: " + mobo.powerInterface;
+                        
+        }
         if (part.GetType() == typeof(CPU))
         {
             CPU cpu = (CPU) part;
@@ -161,41 +186,125 @@ public class Player : MonoBehaviour
 
     void renderComputerStats(float left, float top, float width, float height, float margin, Motherboard mobo)
     {
-        GUI.Button(new Rect(left, top                      , width, height), "MOBO: " + mobo.name);
-        if (GUI.Button(new Rect(left, top + (height + margin), width, height), "CPU: " + mobo.cpu.name))
+        if (mobo != null)
         {
-            viewPart = mobo.cpu;  
+            if(GUI.Button(new Rect(left, top, width, height), "MOBO: " + mobo.name))
+            {
+                viewPart = mobo;
+            }
         }
-        if (GUI.Button(new Rect(left, top + 2 * (height + margin), width, height), "GPU: " + mobo.gpu.name))
+        else
         {
-            viewPart = mobo.gpu;
+            GUI.Button(new Rect(left, top, width, height), "MOBO: None");
         }
-        if (GUI.Button(new Rect(left, top + 3 * (height + margin), width, height), "RAM: " + mobo.ram.name))
+
+        if (mobo.cpu != null)
         {
-            viewPart = mobo.ram;
+            if(GUI.Button(new Rect(left, top + (height + margin), width, height), "CPU: " + mobo.cpu.name))
+            {
+                viewPart = mobo.cpu;
+            }
         }
-        if (GUI.Button(new Rect(left, top + 4 * (height + margin), width, height), "Power Supply: " + mobo.pSupply.name))
+        else
         {
-            viewPart = mobo.pSupply;
+            GUI.Button(new Rect(left, top + (height + margin), width, height), "CPU: None");
         }
-        if (GUI.Button(new Rect(left, top + 5 * (height + margin), width, height), "Input: " + mobo.input.name))
+
+        if (mobo.gpu != null)
         {
-            viewPart = mobo.input;
+            if(GUI.Button(new Rect(left, top + 2 * (height + margin), width, height), "GPU: " + mobo.gpu.name))
+            {
+                viewPart = mobo.gpu;
+            }
         }
-        if (GUI.Button(new Rect(left, top + 6 * (height + margin), width, height), "Output: " + mobo.output.name))
+        else
         {
-            viewPart = mobo.output;
+            GUI.Button(new Rect(left, top + 2 * (height + margin), width, height), "GPU: None");
         }
-        if (GUI.Button(new Rect(left, top + 7 * (height + margin), width, height), "Network Service: " + mobo.network.name))
+
+        if (mobo.ram != null)
         {
-            viewPart = mobo.network;
+            if(GUI.Button(new Rect(left, top + 3 * (height + margin), width, height), "RAM: " + mobo.ram.name))
+            {
+                viewPart = mobo.ram;
+            }
         }
-        if(GUI.Button(new Rect(left, top + 8*(height + margin), width, height), "Chassis: " + mobo.chassis.name))
+        else
         {
-            viewPart = mobo.chassis;
+            GUI.Button(new Rect(left, top + 3 * (height + margin), width, height), "RAM: None");
+        }
+
+        if (mobo.pSupply != null)
+        {
+            if(GUI.Button(new Rect(left, top + 4 * (height + margin), width, height), "Power Supply: " + mobo.pSupply.name))
+            {
+                viewPart = mobo.pSupply;
+            }
+        }
+        else
+        {
+            GUI.Button(new Rect(left, top + 4 * (height + margin), width, height), "Power Supply: None");
+        }
+
+        if (mobo.input != null)
+        {
+            if(GUI.Button(new Rect(left, top + 5 * (height + margin), width, height), "Input: " + mobo.input.name))
+            {
+                viewPart = mobo.input;
+            }
+        }
+        else
+        {
+            GUI.Button(new Rect(left, top + 5 * (height + margin), width, height), "Input: None");
+        }
+
+        if (mobo.output != null)
+        {
+            if(GUI.Button(new Rect(left, top + 6 * (height + margin), width, height), "Output: " + mobo.output.name))
+            {
+                viewPart = mobo.output;
+            }
+        }
+        else
+        {
+            GUI.Button(new Rect(left, top + 6 * (height + margin), width, height), "Output: None");
+        }
+
+        if (mobo.network != null)
+        {
+            if(GUI.Button(new Rect(left, top + 7 * (height + margin), width, height), "Network Service: " + mobo.network.name))
+            {
+                viewPart = mobo.network;
+            }
+        }
+        else
+        {
+            GUI.Button(new Rect(left, top + 7 * (height + margin), width, height), "Network Service: None");
+        }
+
+        if (mobo.chassis != null)
+        {
+            if (GUI.Button(new Rect(left, top + 8 * (height + margin), width, height), "Chassis: " + mobo.chassis.name))
+            {
+                viewPart = mobo.chassis;
+            }
+        }
+        else
+        {
+            GUI.Button(new Rect(left, top + 8 * (height + margin), width, height), "Chassis: None");
         }
     }
 
+    void buyPartsScreen()
+    {
+        GUILayout.BeginArea(new Rect(10, 10, 300, 800));
+        {
+            scrollPos = GUILayout.BeginScrollView(scrollPos);
+
+            GUILayout.EndScrollView();
+        }
+        GUILayout.EndArea();
+    }
     //void renderInfoPane(float left, float top, float width, float height
 
     Motherboard fabricateDebugRig()
@@ -216,6 +325,8 @@ public class Player : MonoBehaviour
         CompNetwork debugNet        = new CompNetwork   ("Digiline Dial-up Package",            125.0f, DEBUG_INTERFACE, 0, 0, NetworkType.DIALUP, 40, 4, 2); 
         Chassis     debugChassis    = new Chassis       ("CompuTech Tower of Power",            125.0f, DEBUG_INTERFACE, 0, 0, 10);
 
+        GPU         badGPU          = new GPU           ("Bad GPU",                             125.0f, "Pudding Cup Interface", 20, 0, 3, 1);
+
 
         returnMobo.CPUInterface         = DEBUG_INTERFACE;
         returnMobo.GPUInterface         = DEBUG_INTERFACE;
@@ -227,15 +338,15 @@ public class Player : MonoBehaviour
         returnMobo.networkInterface     = DEBUG_INTERFACE;
         returnMobo.formFactor           = DEBUG_INTERFACE;
 
-        returnMobo.cpu      = debugCPU;
-        returnMobo.gpu      = debugGPU;
-        returnMobo.hdd      = debugHDD;
-        returnMobo.ram      = debugRAM;
-        returnMobo.input    = debugInput;
-        returnMobo.output   = debugOutput;
-        returnMobo.network  = debugNet;
-        returnMobo.pSupply  = debugPower;
-        returnMobo.chassis  = debugChassis;
+        returnMobo.plugIn(debugCPU);
+        returnMobo.plugIn(debugGPU);
+        returnMobo.plugIn(debugHDD);
+        returnMobo.plugIn(debugRAM);
+        returnMobo.plugIn(debugInput);
+        returnMobo.plugIn(debugOutput);
+        returnMobo.plugIn(debugNet);
+        returnMobo.plugIn(debugPower);
+        returnMobo.plugIn(debugChassis);
 
         return returnMobo;
     }
