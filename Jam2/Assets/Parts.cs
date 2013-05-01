@@ -34,6 +34,7 @@ public class Motherboard
 
 
     public string name;
+    public Company company;
     public float price;
     public float defectiveChance;
 
@@ -141,9 +142,10 @@ public class Motherboard
 public abstract class Part 
 {
     public Part() { }
-    public Part(string name, float price, string partInterface, int powerRequirement, float defectiveChance)
+    public Part(string name, Company company, float price, string partInterface, int powerRequirement, float defectiveChance)
     {
         this.name = name;
+        this.company = company;
         this.price = price;
         this.partInterface = partInterface;
         this.powerRequirement = powerRequirement;
@@ -151,6 +153,7 @@ public abstract class Part
     }
 
     public string name;
+    public Company company;
     public float price;
 
     public string partInterface;
@@ -165,8 +168,8 @@ public class CPU : Part
 {
     public CPU() { }
 
-    public CPU(string name, float price, string partInterface, int powerRequirement, float defectiveChance, int numberOfCores, int clockSpeed, int numberOfBits) 
-        : base(name, price, partInterface, powerRequirement, defectiveChance)
+    public CPU(string name, Company company, float price, string partInterface, int powerRequirement, float defectiveChance, int numberOfCores, int clockSpeed, int numberOfBits)
+        : base(name, company, price, partInterface, powerRequirement, defectiveChance)
     {
         this.numberOfCores = numberOfCores;
         this.clockSpeed = clockSpeed;
@@ -192,8 +195,8 @@ public class CPU : Part
 public class GPU : Part
 {
     public GPU() { }
-    public GPU(string name, float price, string partInterface, int powerRequirement, float defectiveChance, int megaflops, int memory)
-        : base(name, price, partInterface, powerRequirement, defectiveChance)
+    public GPU(string name, Company company, float price, string partInterface, int powerRequirement, float defectiveChance, int megaflops, int memory)
+        : base(name, company, price, partInterface, powerRequirement, defectiveChance)
     {
         this.megaflops  = megaflops;
         this.memory = memory; 
@@ -213,8 +216,8 @@ public class HDD : Part
 {
     public HDD() { }
 
-    public HDD(string name, float price, string partInterface, int powerRequirement, float defectiveChance, int size, int speed)
-        : base(name, price, partInterface, powerRequirement, defectiveChance)
+    public HDD(string name, Company company, float price, string partInterface, int powerRequirement, float defectiveChance, int size, int speed)
+        : base(name, company, price, partInterface, powerRequirement, defectiveChance)
     {
         this.size   = size;
         this.speed  = speed;
@@ -233,8 +236,8 @@ public class RAM : Part
 {
     public RAM() { }
 
-    public RAM(string name, float price, string partInterface, int powerRequirement, float defectiveChance, int size, int speed, int channels)
-        : base(name, price, partInterface, powerRequirement, defectiveChance)
+    public RAM(string name, Company company, float price, string partInterface, int powerRequirement, float defectiveChance, int size, int speed, int channels)
+        : base(name, company, price, partInterface, powerRequirement, defectiveChance)
     {
         this.size = size;
         this.speed = speed;
@@ -255,8 +258,8 @@ public class CompInput : Part
 {
     public CompInput() { }
 
-    public CompInput(string name, float price, string partInterface, int powerRequirement, float defectiveChance, int mouseDPI, int pollingRate, bool isMechanical)
-        : base(name, price, partInterface, powerRequirement, defectiveChance)
+    public CompInput(string name, Company company, float price, string partInterface, int powerRequirement, float defectiveChance, int mouseDPI, int pollingRate, bool isMechanical)
+        : base(name, company, price, partInterface, powerRequirement, defectiveChance)
     {
         this.mouseDPI       = mouseDPI;
         this.pollingRate    = pollingRate;
@@ -277,8 +280,8 @@ public class CompOutput : Part
 {
     public CompOutput() { }
 
-    public CompOutput(string name, float price, string partInterface, int powerRequirement, float defectiveChance, int resolution, int refreshRate, int soundQuality)
-        : base(name, price, partInterface, powerRequirement, defectiveChance)
+    public CompOutput(string name, Company company, float price, string partInterface, int powerRequirement, float defectiveChance, int resolution, int refreshRate, int soundQuality)
+        : base(name, company, price, partInterface, powerRequirement, defectiveChance)
     {
         this.resolution     = resolution;
         this.refreshRate    = refreshRate;
@@ -299,19 +302,17 @@ public class CompNetwork : Part
 {
     public CompNetwork() { }
 
-    public CompNetwork(string name, float price, string partInterface, int powerRequirement, float defectiveChance, NetworkType networkType, int ping, int bandwidth, int qualityOfService)
-        : base(name, price, partInterface, powerRequirement, defectiveChance)
+    public CompNetwork(string name, Company company, float price, string partInterface, int powerRequirement, float defectiveChance, NetworkType networkType, int ping, int bandwidth)
+        : base(name, company, price, partInterface, powerRequirement, defectiveChance)
     {
         this.networkType = networkType;
         this.ping = ping;
         this.bandwidth = bandwidth;
-        this.qualityOfService = qualityOfService;
     }
 
     public NetworkType networkType;
     public int ping;
     public int bandwidth;
-    public int qualityOfService;
 
     public override float calculateAggregate()
     {
@@ -323,8 +324,8 @@ public class PowerSupply : Part
 {
     public PowerSupply() { }
 
-    public PowerSupply(string name, float price, string partInterface, int powerRequirement, float defectiveChance, int wattage)
-        : base(name, price, partInterface, powerRequirement, defectiveChance)
+    public PowerSupply(string name, Company company, float price, string partInterface, int powerRequirement, float defectiveChance, int wattage)
+        : base(name, company, price, partInterface, powerRequirement, defectiveChance)
     {
         this.wattage = wattage;
     }
@@ -339,8 +340,8 @@ public class PowerSupply : Part
 public class Chassis : Part
 {
     public Chassis() { }
-    public Chassis(string name, float price, string partInterface, int powerRequirement, float defectiveChance, int coolFactor)
-        : base(name, price, partInterface, powerRequirement, defectiveChance)
+    public Chassis(string name, Company company, float price, string partInterface, int powerRequirement, float defectiveChance, int coolFactor)
+        : base(name, company, price, partInterface, powerRequirement, defectiveChance)
     {
         this.coolFactor = coolFactor;
     }

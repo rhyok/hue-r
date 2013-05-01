@@ -315,17 +315,17 @@ public class Player : MonoBehaviour
 
         string DEBUG_INTERFACE = "Debug";
 
-        CPU         debugCPU        = new CPU           ("Hammond DebugHammer 750XL",           125.0f, DEBUG_INTERFACE, 30, 0, 1, 6, 32);
-        GPU         debugGPU        = new GPU           ("Zhu Industries Mothra 8800",          125.0f, DEBUG_INTERFACE, 20, 0, 3, 1);
-        HDD         debugHDD        = new HDD           ("DataPlatter Stack 5",                 125.0f, DEBUG_INTERFACE, 2, 0, 10, 8);
-        RAM         debugRAM        = new RAM           ("RYAM Interceptor 1 MB",               125.0f, DEBUG_INTERFACE, 1, 0, 1, 10, 1);
-        PowerSupply debugPower      = new PowerSupply   ("ArEmEs 200W Power Supply",            125.0f, DEBUG_INTERFACE, 0, 0, 200);
-        CompInput   debugInput      = new CompInput     ("Cobra Katana",                        125.0f, DEBUG_INTERFACE, 0, 0, 50, 60, false);
-        CompOutput  debugOutput     = new CompOutput    ("AudiVisual AV2350",                   125.0f, DEBUG_INTERFACE, 0, 0, 320, 30, 5);
-        CompNetwork debugNet        = new CompNetwork   ("Digiline Dial-up Package",            125.0f, DEBUG_INTERFACE, 0, 0, NetworkType.DIALUP, 40, 4, 2); 
-        Chassis     debugChassis    = new Chassis       ("CompuTech Tower of Power",            125.0f, DEBUG_INTERFACE, 0, 0, 10);
+        CPU         debugCPU        = new CPU           ("Hammond DebugHammer 750XL",           Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 30, 0, 1, 6, 32);
+        GPU         debugGPU        = new GPU           ("Zhu Industries Mothra 8800",          Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 20, 0, 3, 1);
+        HDD         debugHDD        = new HDD           ("DataPlatter Stack 5",                 Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 2, 0, 10, 8);
+        RAM         debugRAM        = new RAM           ("RYAM Interceptor 1 MB",               Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 1, 0, 1, 10, 1);
+        PowerSupply debugPower      = new PowerSupply   ("ArEmEs 200W Power Supply",            Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 200);
+        CompInput   debugInput      = new CompInput     ("Cobra Katana",                        Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 50, 60, false);
+        CompOutput  debugOutput     = new CompOutput    ("AudiVisual AV2350",                   Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 320, 30, 5);
+        CompNetwork debugNet        = new CompNetwork   ("Digiline Dial-up Package",            Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, NetworkType.DIALUP, 40, 4, 2); 
+        Chassis     debugChassis    = new Chassis       ("CompuTech Tower of Power",            Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 10);
 
-        GPU         badGPU          = new GPU           ("Bad GPU",                             125.0f, "Pudding Cup Interface", 20, 0, 3, 1);
+        GPU         badGPU          = new GPU           ("Bad GPU",                             Company.COMPUTECH, 125.0f, "Pudding Cup Interface", 20, 0, 3, 1);
 
 
         returnMobo.CPUInterface         = DEBUG_INTERFACE;

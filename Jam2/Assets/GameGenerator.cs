@@ -202,8 +202,16 @@ public class GameGenerator : MonoBehaviour {
         //Requirements
         game.CPURequirement = 10;
         game.GPURequirement = 1 * 1;
-        //game.RAMRequirement = 
+        game.RAMRequirement = 1;
+        game.networkRequirement = NetworkType.NONE;
 
-        return null;
+        game.CPUScalar = 1;
+        game.GPUScalar = 1;
+        game.RAMScalar = 1;
+        game.HDDScalar = 1;
+        game.InputScalar = 1;
+        game.OutputScalar = 1;
+
+        return game;
     }
 }
