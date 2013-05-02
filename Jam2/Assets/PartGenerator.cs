@@ -48,21 +48,6 @@ public enum Interfaces
     TYPE6
 }
 
-public enum Stat 
-{ 
-    MOBO_DEFECTIVE,
-    MOBO_CPUI,
-    MOBO_GPUI,
-    MOBO_HDDI,
-    MOBO_RAMI,
-    MOBO_PWRI,
-    MOBO_INI,
-    MOBO_OUTI,
-    MOBO_NETI,
-    MOBO_FORM,
-
-}
-
 public class PartGenerator : MonoBehaviour {
 
     Hashtable MOBO = new Hashtable();
@@ -151,17 +136,38 @@ public class PartGenerator : MonoBehaviour {
         NETWORK[Company.CHRONO] = 1.0f;
         NETWORK[Company.SINGULAR] = 0.95f;
         NETWORK[Company.BOMBAST] = 0.9f;
-
-
-
-
-
-        rand = new System.Random();
     }
 
-    public Part generatePart()
+    public Part generatePart(Type partType, Company company)
     {
-        CPU temp = new CPU();
-        return temp;
+        Part returnPart = null;
+        if (partType == typeof(CPU))
+        {
+        }
+        else if (partType == typeof(GPU))
+        {
+        }
+        else if (partType == typeof(HDD))
+        {
+        }
+        else if (partType == typeof(RAM))
+        {
+        }
+        else if (partType == typeof(CompInput))
+        {
+        }
+        else if (partType == typeof(CompOutput))
+        {
+        }
+        else if (partType == typeof(CompNetwork))
+        {
+        }
+        else if (partType == typeof(PowerSupply))
+        {
+        }
+        else if (partType == typeof(Chassis))
+        {
+        }
+        return returnPart;
     }
 }

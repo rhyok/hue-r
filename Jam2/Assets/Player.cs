@@ -164,8 +164,7 @@ public class Player : MonoBehaviour
                         "Interface Type: " + network.partInterface + "\n" +
                         "Power: " + network.powerRequirement + " W\n" +
                         "Average Worldwide Ping " + network.ping + " ms \n" +
-                        "Bandwidth: " + network.bandwidth + " Mb/s\n" +
-                        "Quality of Service Rating: " + network.qualityOfService + " points\n";
+                        "Bandwidth: " + network.bandwidth + " Mb/s\n";
         }
         if (part.GetType() == typeof(PowerSupply))
         {
@@ -322,7 +321,7 @@ public class Player : MonoBehaviour
         PowerSupply debugPower      = new PowerSupply   ("ArEmEs 200W Power Supply",            Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 200);
         CompInput   debugInput      = new CompInput     ("Cobra Katana",                        Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 50, 60, false);
         CompOutput  debugOutput     = new CompOutput    ("AudiVisual AV2350",                   Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 320, 30, 5);
-        CompNetwork debugNet        = new CompNetwork   ("Digiline Dial-up Package",            Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, NetworkType.DIALUP, 40, 4, 2); 
+        CompNetwork debugNet        = new CompNetwork   ("Digiline Dial-up Package",            Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, NetworkType.DIALUP, 40, 4); 
         Chassis     debugChassis    = new Chassis       ("CompuTech Tower of Power",            Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 10);
 
         GPU         badGPU          = new GPU           ("Bad GPU",                             Company.COMPUTECH, 125.0f, "Pudding Cup Interface", 20, 0, 3, 1);

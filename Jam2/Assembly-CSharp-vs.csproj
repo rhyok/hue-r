@@ -44,12 +44,17 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DataStructures.cs" />
      <Compile Include="Assets\Game.cs" />
      <Compile Include="Assets\GameGenerator.cs" />
      <Compile Include="Assets\GeneratorRules.cs" />
+     <Compile Include="Assets\MasterRaceSim.cs" />
+     <Compile Include="Assets\PartEra.cs" />
+     <Compile Include="Assets\PartGenerator.cs" />
      <Compile Include="Assets\Parts.cs" />
      <Compile Include="Assets\Player.cs" />
-     <Compile Include="Assets\UserDisplay.cs" />
+     <Compile Include="Assets\PlayerInventory.cs" />
+     <Compile Include="Assets\Shop.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
