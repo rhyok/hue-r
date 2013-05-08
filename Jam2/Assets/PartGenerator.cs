@@ -50,27 +50,27 @@ public enum Interfaces
 
 public class PartGenerator : MonoBehaviour {
 
-    Hashtable MOBO = new Hashtable();
-    Hashtable CPU = new Hashtable();
-    Hashtable GPU = new Hashtable();
-    Hashtable RAM = new Hashtable();
-    Hashtable HDD = new Hashtable();
-    Hashtable PSU = new Hashtable();
-    Hashtable CHASSIS = new Hashtable();
-    Hashtable INPUT = new Hashtable();
-    Hashtable OUTPUT = new Hashtable();
-    Hashtable NETWORK = new Hashtable();
+    public Hashtable MOBO = new Hashtable();
+    public Hashtable CPU = new Hashtable();
+    public Hashtable GPU = new Hashtable();
+    public Hashtable RAM = new Hashtable();
+    public Hashtable HDD = new Hashtable();
+    public Hashtable PSU = new Hashtable();
+    public Hashtable CHASSIS = new Hashtable();
+    public Hashtable INPUT = new Hashtable();
+    public Hashtable OUTPUT = new Hashtable();
+    public Hashtable NETWORK = new Hashtable();
 
-    ArrayList MOBO_PAIRS = new ArrayList();
-    ArrayList CPU_PAIRS = new ArrayList();
-    ArrayList GPU_PAIRS = new ArrayList();
-    ArrayList RAM_PAIRS = new ArrayList();
-    ArrayList HDD_PAIRS = new ArrayList();
-    ArrayList PSU_PAIRS = new ArrayList();
-    ArrayList CHASSIS_PAIRS = new ArrayList();
-    ArrayList INPUT_PAIRS = new ArrayList();
-    ArrayList OUTPUT_PAIRS = new ArrayList();
-    ArrayList NETWORK_PAIRS = new ArrayList();
+    public ArrayList MOBO_PAIRS = new ArrayList();
+    public ArrayList CPU_PAIRS = new ArrayList();
+    public ArrayList GPU_PAIRS = new ArrayList();
+    public ArrayList RAM_PAIRS = new ArrayList();
+    public ArrayList HDD_PAIRS = new ArrayList();
+    public ArrayList PSU_PAIRS = new ArrayList();
+    public ArrayList CHASSIS_PAIRS = new ArrayList();
+    public ArrayList INPUT_PAIRS = new ArrayList();
+    public ArrayList OUTPUT_PAIRS = new ArrayList();
+    public ArrayList NETWORK_PAIRS = new ArrayList();
 
     Era currentEra;
     System.Random rand;
