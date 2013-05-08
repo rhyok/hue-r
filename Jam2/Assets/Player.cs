@@ -4,11 +4,9 @@ using System.Collections;
 public enum PlayerGUIState
 {
     MAIN_SCREEN,
-    BUY_PARTS_SCREEN,
+    STORE_SCREEN,
     
 }
-
-
 
 public class Player : MonoBehaviour 
 {
@@ -16,24 +14,28 @@ public class Player : MonoBehaviour
     public float funds;
     public object viewPart;
     public ArrayList storeFront;
+    public PlayerGUIState gameState = PlayerGUIState.MAIN_SCREEN;
+    public string DEBUG_INTERFACE = "Debug";
 
     private Vector2 scrollPos;
 
     void Start()
     {
         funds = 3000.0f;
+        storeFront = new ArrayList();
     }
 
     void OnGUI()
     {
-        PlayerGUIState gameState = PlayerGUIState.MAIN_SCREEN;
+        
 
         switch (gameState)
         {
             case PlayerGUIState.MAIN_SCREEN:
                 mainScreen();
                 break;
-            case PlayerGUIState.BUY_PARTS_SCREEN:
+            case PlayerGUIState.STORE_SCREEN:
+                storeScreen();
                 break;
             default:
                 break;
@@ -63,6 +65,53 @@ public class Player : MonoBehaviour
         if (GUI.Button(new Rect(35, 30, 150, 20), "Give Self Debug Rig"))
         {
             mobo = fabricateDebugRig();
+        }
+        if (GUI.Button(new Rect(35, 60, 150, 20), "Just Give Debug Mobo"))
+        {
+            Motherboard returnMobo = new Motherboard();
+            returnMobo.name = "Mother of All Boards";
+            returnMobo.CPUInterface         = DEBUG_INTERFACE;
+            returnMobo.GPUInterface         = DEBUG_INTERFACE;
+            returnMobo.HDDInterface         = DEBUG_INTERFACE;
+            returnMobo.RAMInterface         = DEBUG_INTERFACE;
+            returnMobo.powerInterface       = DEBUG_INTERFACE;
+            returnMobo.compInputInterface   = DEBUG_INTERFACE;
+            returnMobo.compOutputInterface  = DEBUG_INTERFACE;
+            returnMobo.networkInterface     = DEBUG_INTERFACE;
+            returnMobo.formFactor           = DEBUG_INTERFACE;
+            
+            mobo = returnMobo;
+        }
+        if (GUI.Button(new Rect(35, 90, 150, 20), "Go to Storefront"))
+        {
+            gameState = PlayerGUIState.STORE_SCREEN;
+        }
+        if (GUI.Button(new Rect(35, 120, 150, 20), "Make Me Some Parts!"))
+        {
+            CPU debugCPU = new CPU("Hammond DebugHammer 750XL", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 30, 0, 1, 6, 32);
+            GPU debugGPU = new GPU("Zhu Industries Mothra 8800", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 20, 0, 3, 1);
+            HDD debugHDD = new HDD("DataPlatter Stack 5", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 2, 0, 10, 8);
+            RAM debugRAM = new RAM("RYAM Interceptor 1 MB", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 1, 0, 1, 10, 1);
+            PowerSupply debugPower = new PowerSupply("ArEmEs 200W Power Supply", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 200);
+            CompInput debugInput = new CompInput("Cobra Katana", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 50, 60, false);
+            CompOutput debugOutput = new CompOutput("AudiVisual AV2350", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 320, 30, 5);
+            CompNetwork debugNet = new CompNetwork("Digiline Dial-up Package", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, NetworkType.DIALUP, 40, 4);
+            Chassis debugChassis = new Chassis("CompuTech Tower of Power", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 10);
+
+            GPU badGPU = new GPU("Bad GPU", Company.COMPUTECH, 125.0f, "Pudding Cup Interface", 20, 0, 3, 1);
+            storeFront.Add(debugCPU);
+            storeFront.Add(debugGPU);
+            storeFront.Add(debugRAM);
+            storeFront.Add(debugHDD);
+            storeFront.Add(debugPower);
+            storeFront.Add(debugInput);
+            storeFront.Add(debugOutput);
+            storeFront.Add(debugNet);
+            storeFront.Add(debugChassis);
+        }
+        if (GUI.Button(new Rect(35, 150, 150, 20), "Go back to Rig Viewing Screen"))
+        {
+            gameState = PlayerGUIState.MAIN_SCREEN;
         }
     }
     
@@ -294,15 +343,38 @@ public class Player : MonoBehaviour
         }
     }
 
-    void buyPartsScreen()
+    void renderBuyDialog(float left, float top, float width, float height, object part)
     {
-        GUILayout.BeginArea(new Rect(10, 10, 300, 800));
+        renderPartStatistics(left, top, width, height, viewPart);
+        if(GUI.Button(new Rect(left + 30, top + 10, 100, 20), "Buy Part"))
+        {
+            buyPart((Part)part);
+        }
+    }
+
+    void storeScreen()
+    {
+        renderDebugMenu();
+        GUILayout.BeginArea(new Rect(300, 10, 300, 800));
         {
             scrollPos = GUILayout.BeginScrollView(scrollPos);
-
+            if (storeFront.Count > 0)
+            {
+                foreach (Part part in storeFront)
+                {
+                    if (GUILayout.Button("Part: " + part.name + " | Cost: $" + part.price))
+                    {
+                        viewPart = part;
+                    }
+                }
+            }
             GUILayout.EndScrollView();
         }
         GUILayout.EndArea();
+        if (viewPart != null)
+        {
+            renderBuyDialog(600, 20, 300, 400, viewPart);
+        }
     }
     //void renderInfoPane(float left, float top, float width, float height
 
@@ -311,8 +383,6 @@ public class Player : MonoBehaviour
         Motherboard returnMobo = new Motherboard();
 
         returnMobo.name = "Mother of All Boards";
-
-        string DEBUG_INTERFACE = "Debug";
 
         CPU         debugCPU        = new CPU           ("Hammond DebugHammer 750XL",           Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 30, 0, 1, 6, 32);
         GPU         debugGPU        = new GPU           ("Zhu Industries Mothra 8800",          Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 20, 0, 3, 1);
@@ -348,5 +418,33 @@ public class Player : MonoBehaviour
         returnMobo.plugIn(debugChassis);
 
         return returnMobo;
+    }
+
+    void buyPart(Part part)
+    {
+        if (mobo != null)
+        {
+            if (part.price < funds)
+            {
+                if (mobo.plugIn(part))
+                {
+                    funds -= part.price;
+                    print("Part purchased! Remaining Funds: " + funds);
+                }
+                else
+                {
+                    print("Your motherboard's interface is not compatible with this!");
+                }
+                
+            }
+            else
+            {
+                print("You must construct additional cash piles!");
+            }
+        }
+        else
+        {
+            print("You have no motherboard on which to plug things in to test if they work!");
+        }
     }
 }

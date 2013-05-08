@@ -43,7 +43,7 @@ public class PartEra {
     }
 }
 
-public static class Eras
+public class Eras
 {
     private ArrayList eraList = new ArrayList();
     public Eras()

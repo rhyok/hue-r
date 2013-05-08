@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Game.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Player.cs">
     <Files>
       <File FileName="Assets\PartEra.cs" Line="1" Column="1" />
-      <File FileName="Assets\Player.cs" Line="1" Column="1" />
+      <File FileName="Assets\Player.cs" Line="19" Column="66" />
       <File FileName="Assets\GameGenerator.cs" Line="1" Column="1" />
       <File FileName="Assets\Game.cs" Line="1" Column="1" />
     </Files>
