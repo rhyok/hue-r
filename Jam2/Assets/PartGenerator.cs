@@ -143,6 +143,16 @@ public class PartGenerator : MonoBehaviour {
         Part returnPart = null;
         if (partType == typeof(CPU))
         {
+            /*
+            CPU = new CPU(
+                generatePartName(partType, company),
+                companyToString(company),
+                499.0f,
+                "Generic Interface",
+                100,
+                1
+                )
+             * */
         }
         else if (partType == typeof(GPU))
         {
@@ -169,5 +179,133 @@ public class PartGenerator : MonoBehaviour {
         {
         }
         return returnPart;
+    }
+
+    public string generatePartName(Type partType, Company company)
+    {
+        string companyName = companyToString(company);
+
+        string partName = "";
+
+        if (partType == typeof(CPU))
+        {
+            partName = "CPU";
+        }
+        else if (partType == typeof(GPU))
+        {
+            partName = "GPU";
+        }
+        else if (partType == typeof(HDD))
+        {
+            partName = "HDD";
+        }
+        else if (partType == typeof(RAM))
+        {
+            partName = "RAM";
+        }
+        else if (partType == typeof(CompInput))
+        {
+            partName = "Input Device";
+        }
+        else if (partType == typeof(CompOutput))
+        {
+            partName = "Monitor/Speaker Combo";
+        }
+        else if (partType == typeof(CompNetwork))
+        {
+            partName = "Network";
+        }
+        else if (partType == typeof(PowerSupply))
+        {
+            partName = "Power Supply";
+        }
+        else if (partType == typeof(Chassis))
+        {
+            partName = "Chassis";
+        }
+
+        return companyName + " " + partName;
+    }
+
+    public string companyToString(Company company)
+    {
+        string companyName = "";
+        if (company == Company.AND)
+        {
+            companyName = "AND";
+        }
+        if (company == Company.ANT_TECH)
+        {
+            companyName = "Ant Tech";
+        }
+        if (company == Company.BOMBAST)
+        {
+            companyName = "Bombast";
+        }
+        if (company == Company.CHRONO)
+        {
+            companyName = "Chrono Alarm";
+        }
+        if (company == Company.COMPUTECH)
+        {
+            companyName = "CompuTech";
+        }
+        if (company == Company.EASTERN)
+        {
+            companyName = "Eastern Digital";
+        }
+        if (company == Company.EDVI)
+        {
+            companyName = "EDVI";
+        }
+        if (company == Company.ESSENTIAL)
+        {
+            companyName = "Essential";
+        }
+        if (company == Company.GIGAFLOP)
+        {
+            companyName = "GigaFlop";
+        }
+        if (company == Company.LASUS)
+        {
+            companyName = "Lasus";
+        }
+        if (company == Company.LOGIBLAT)
+        {
+            companyName = "LogiBlat";
+        }
+        if (company == Company.MACROSOFT)
+        {
+            companyName = "Macrosoft";
+        }
+        if (company == Company.MAURADER)
+        {
+            companyName = "Maurader";
+        }
+        if (company == Company.MPI)
+        {
+            companyName = "Micro-Planet International";
+        }
+        if (company == Company.ORANGE)
+        {
+            companyName = "Orange";
+        }
+        if (company == Company.PHAZER)
+        {
+            companyName = "Phazer";
+        }
+        if (company == Company.PINTEL)
+        {
+            companyName = "Pintel";
+        }
+        if (company == Company.QUEENSTON)
+        {
+            companyName = "Queenston";
+        }
+        if (company == Company.SINGULAR)
+        {
+            companyName = "Singular";
+        }
+        return companyName;
     }
 }
