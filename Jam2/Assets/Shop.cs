@@ -3,25 +3,25 @@ using System.Collections;
 using System;
 
 public class Shop {
-    ArrayList moboInventory;
-    ArrayList cpuInventory;
-    ArrayList gpuInventory;
-    ArrayList hddInventory;
-    ArrayList ramInventory;
-    ArrayList inputInventory;
-    ArrayList outputInventory;
-    ArrayList networkInventory;
-    ArrayList pSupplyInventory;
-    ArrayList chassisInventory;
+    public ArrayList moboInventory     = new ArrayList();
+    public ArrayList cpuInventory = new ArrayList();
+    public ArrayList gpuInventory = new ArrayList();
+    public ArrayList hddInventory = new ArrayList();
+    public ArrayList ramInventory = new ArrayList();
+    public ArrayList inputInventory = new ArrayList();
+    public ArrayList outputInventory = new ArrayList();
+    public ArrayList networkInventory = new ArrayList();
+    public ArrayList pSupplyInventory = new ArrayList();
+    public ArrayList chassisInventory = new ArrayList();
 
     PartGenerator pg;
-    Random rand;
+    System.Random rand;
 
-    void generateInventory()
+    public void generateInventory()
     {
         Pair<Type, Company> temp;
         int temp2;
-        rand = new Random();
+        rand = new System.Random();
 
         pg = new PartGenerator();
         moboInventory.Clear();

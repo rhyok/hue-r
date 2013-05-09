@@ -48,7 +48,7 @@ public enum Interfaces
     TYPE6
 }
 
-public class PartGenerator : MonoBehaviour {
+public class PartGenerator {
 
     public Hashtable MOBO = new Hashtable();
     public Hashtable CPU = new Hashtable();
@@ -76,121 +76,122 @@ public class PartGenerator : MonoBehaviour {
     System.Random rand;
     Eras ranges;
 
-    void Start()
+    public PartGenerator()
     {
         MOBO[Company.EDVI] = 1.0f;
-        MOBO_PAIRS.Add(new Pair<PartType,Company>(PartType.MOBO,Company.EDVI));
+        MOBO_PAIRS.Add(new Pair<Type,Company>(typeof(Motherboard),Company.EDVI));
         MOBO[Company.MPI] = 0.95f;
-        MOBO_PAIRS.Add(new Pair<PartType, Company>(PartType.MOBO, Company.MPI));
+        MOBO_PAIRS.Add(new Pair<Type,Company>(typeof(Motherboard), Company.MPI));
         MOBO[Company.AND] = 0.9f;
-        MOBO_PAIRS.Add(new Pair<PartType, Company>(PartType.MOBO, Company.AND));
+        MOBO_PAIRS.Add(new Pair<Type,Company>(typeof(Motherboard), Company.AND));
         MOBO[Company.PINTEL] = 0.85f;
-        MOBO_PAIRS.Add(new Pair<PartType, Company>(PartType.MOBO, Company.PINTEL));
+        MOBO_PAIRS.Add(new Pair<Type,Company>(typeof(Motherboard), Company.PINTEL));
         MOBO[Company.GIGAFLOP] = 0.8f;
-        MOBO_PAIRS.Add(new Pair<PartType, Company>(PartType.MOBO, Company.GIGAFLOP));
+        MOBO_PAIRS.Add(new Pair<Type,Company>(typeof(Motherboard), Company.GIGAFLOP));
 
         CPU[Company.PINTEL] = 1.0f;
-        CPU_PAIRS.Add(new Pair<PartType, Company>(PartType.CPU, Company.PINTEL));
+        CPU_PAIRS.Add(new Pair<Type,Company>(typeof(CPU), Company.PINTEL));
         CPU[Company.AND] = 0.95f;
-        CPU_PAIRS.Add(new Pair<PartType, Company>(PartType.CPU, Company.AND));
+        CPU_PAIRS.Add(new Pair<Type,Company>(typeof(CPU), Company.AND));
         CPU[Company.MACROSOFT] = 0.9f;
-        CPU_PAIRS.Add(new Pair<PartType, Company>(PartType.CPU, Company.MACROSOFT));
+        CPU_PAIRS.Add(new Pair<Type,Company>(typeof(CPU), Company.MACROSOFT));
         CPU[Company.EASTERN] = 0.85f;
-        CPU_PAIRS.Add(new Pair<PartType, Company>(PartType.CPU, Company.EASTERN));
+        CPU_PAIRS.Add(new Pair<Type,Company>(typeof(CPU), Company.EASTERN));
         CPU[Company.COMPUTECH] = 0.8f;
-        CPU_PAIRS.Add(new Pair<PartType, Company>(PartType.CPU, Company.COMPUTECH));
+        CPU_PAIRS.Add(new Pair<Type,Company>(typeof(CPU), Company.COMPUTECH));
 
         GPU[Company.EDVI] = 1.0f;
-        GPU_PAIRS.Add(new Pair<PartType, Company>(PartType.GPU, Company.EDVI));
+        GPU_PAIRS.Add(new Pair<Type,Company>(typeof(GPU), Company.EDVI));
         GPU[Company.MPI] = 0.95f;
-        GPU_PAIRS.Add(new Pair<PartType, Company>(PartType.GPU, Company.MPI));
+        GPU_PAIRS.Add(new Pair<Type,Company>(typeof(GPU), Company.MPI));
         GPU[Company.GIGAFLOP] = 0.95f;
-        GPU_PAIRS.Add(new Pair<PartType, Company>(PartType.GPU, Company.GIGAFLOP));
+        GPU_PAIRS.Add(new Pair<Type,Company>(typeof(GPU), Company.GIGAFLOP));
         GPU[Company.LASUS] = 0.9f;
-        GPU_PAIRS.Add(new Pair<PartType, Company>(PartType.GPU, Company.LASUS));
+        GPU_PAIRS.Add(new Pair<Type,Company>(typeof(GPU), Company.LASUS));
         GPU[Company.AND] = 0.85f;
-        GPU_PAIRS.Add(new Pair<PartType, Company>(PartType.GPU, Company.AND));
+        GPU_PAIRS.Add(new Pair<Type,Company>(typeof(GPU), Company.AND));
         GPU[Company.LOGIBLAT] = 0.8f;
-        GPU_PAIRS.Add(new Pair<PartType, Company>(PartType.GPU, Company.LOGIBLAT));
+        GPU_PAIRS.Add(new Pair<Type,Company>(typeof(GPU), Company.LOGIBLAT));
 
         RAM[Company.QUEENSTON] = 1.0f;
-        RAM_PAIRS.Add(new Pair<PartType, Company>(PartType.RAM, Company.QUEENSTON));
+        RAM_PAIRS.Add(new Pair<Type,Company>(typeof(RAM), Company.QUEENSTON));
         RAM[Company.MAURADER] = 0.95f;
-        RAM_PAIRS.Add(new Pair<PartType, Company>(PartType.RAM, Company.MAURADER));
+        RAM_PAIRS.Add(new Pair<Type,Company>(typeof(RAM), Company.MAURADER));
         RAM[Company.ESSENTIAL] = 0.9f;
-        RAM_PAIRS.Add(new Pair<PartType, Company>(PartType.RAM, Company.ESSENTIAL));
+        RAM_PAIRS.Add(new Pair<Type,Company>(typeof(RAM), Company.ESSENTIAL));
         RAM[Company.EASTERN] = 0.85f;
-        RAM_PAIRS.Add(new Pair<PartType, Company>(PartType.RAM, Company.EASTERN));
+        RAM_PAIRS.Add(new Pair<Type,Company>(typeof(RAM), Company.EASTERN));
         RAM[Company.ORANGE] = 0.8f;
-        RAM_PAIRS.Add(new Pair<PartType, Company>(PartType.RAM, Company.ORANGE));
+        RAM_PAIRS.Add(new Pair<Type,Company>(typeof(RAM), Company.ORANGE));
 
         HDD[Company.QUEENSTON] = 1.0f;
-        HDD_PAIRS.Add(new Pair<PartType, Company>(PartType.HDD, Company.QUEENSTON));
+        HDD_PAIRS.Add(new Pair<Type,Company>(typeof(HDD), Company.QUEENSTON));
         HDD[Company.EASTERN] = 1.0f;
-        HDD_PAIRS.Add(new Pair<PartType, Company>(PartType.HDD, Company.EASTERN));
+        HDD_PAIRS.Add(new Pair<Type,Company>(typeof(HDD), Company.EASTERN));
         HDD[Company.PINTEL] = 0.95f;
-        HDD_PAIRS.Add(new Pair<PartType, Company>(PartType.HDD, Company.PINTEL));
+        HDD_PAIRS.Add(new Pair<Type,Company>(typeof(HDD), Company.PINTEL));
         HDD[Company.ESSENTIAL] = 0.9f;
-        HDD_PAIRS.Add(new Pair<PartType, Company>(PartType.HDD, Company.ESSENTIAL));
+        HDD_PAIRS.Add(new Pair<Type,Company>(typeof(HDD), Company.ESSENTIAL));
         HDD[Company.ORANGE] = 0.85f;
-        HDD_PAIRS.Add(new Pair<PartType, Company>(PartType.HDD, Company.ORANGE));
+        HDD_PAIRS.Add(new Pair<Type,Company>(typeof(HDD), Company.ORANGE));
         HDD[Company.LASUS] = 0.8f;
-        HDD_PAIRS.Add(new Pair<PartType, Company>(PartType.HDD, Company.LASUS));
+        HDD_PAIRS.Add(new Pair<Type,Company>(typeof(HDD), Company.LASUS));
 
         PSU[Company.ANT_TECH] = 1.0f;
-        PSU_PAIRS.Add(new Pair<PartType, Company>(PartType.PSU, Company.ANT_TECH));
+        PSU_PAIRS.Add(new Pair<Type,Company>(typeof(PowerSupply), Company.ANT_TECH));
         PSU[Company.MPI] = 0.95f;
-        PSU_PAIRS.Add(new Pair<PartType, Company>(PartType.PSU, Company.MPI));
+        PSU_PAIRS.Add(new Pair<Type,Company>(typeof(PowerSupply), Company.MPI));
         PSU[Company.MAURADER] = 0.9f;
-        PSU_PAIRS.Add(new Pair<PartType, Company>(PartType.PSU, Company.MAURADER));
+        PSU_PAIRS.Add(new Pair<Type,Company>(typeof(PowerSupply), Company.MAURADER));
         PSU[Company.ESSENTIAL] = 0.85f;
-        PSU_PAIRS.Add(new Pair<PartType, Company>(PartType.PSU, Company.ESSENTIAL));
+        PSU_PAIRS.Add(new Pair<Type,Company>(typeof(PowerSupply), Company.ESSENTIAL));
         PSU[Company.GIGAFLOP] = 0.8f;
-        PSU_PAIRS.Add(new Pair<PartType, Company>(PartType.PSU, Company.GIGAFLOP));
+        PSU_PAIRS.Add(new Pair<Type,Company>(typeof(PowerSupply), Company.GIGAFLOP));
 
         CHASSIS[Company.ANT_TECH] = 1.0f;
-        CHASSIS_PAIRS.Add(new Pair<PartType, Company>(PartType.CHASSIS, Company.ANT_TECH));
+        CHASSIS_PAIRS.Add(new Pair<Type,Company>(typeof(Chassis), Company.ANT_TECH));
         CHASSIS[Company.MAURADER] = 0.95f;
-        CHASSIS_PAIRS.Add(new Pair<PartType, Company>(PartType.CHASSIS, Company.MAURADER));
+        CHASSIS_PAIRS.Add(new Pair<Type,Company>(typeof(Chassis), Company.MAURADER));
         CHASSIS[Company.MPI] = 0.9f;
-        CHASSIS_PAIRS.Add(new Pair<PartType, Company>(PartType.CHASSIS, Company.MPI));
+        CHASSIS_PAIRS.Add(new Pair<Type,Company>(typeof(Chassis), Company.MPI));
         CHASSIS[Company.GIGAFLOP] = 0.85f;
-        CHASSIS_PAIRS.Add(new Pair<PartType, Company>(PartType.CHASSIS, Company.GIGAFLOP));
+        CHASSIS_PAIRS.Add(new Pair<Type,Company>(typeof(Chassis), Company.GIGAFLOP));
         CHASSIS[Company.COMPUTECH] = 0.8f;
-        CHASSIS_PAIRS.Add(new Pair<PartType, Company>(PartType.CHASSIS, Company.COMPUTECH));
+        CHASSIS_PAIRS.Add(new Pair<Type,Company>(typeof(Chassis), Company.COMPUTECH));
 
         INPUT[Company.PHAZER] = 1.0f;
-        INPUT_PAIRS.Add(new Pair<PartType, Company>(PartType.INPUT, Company.PHAZER));
+        INPUT_PAIRS.Add(new Pair<Type,Company>(typeof(CompInput), Company.PHAZER));
         INPUT[Company.LOGIBLAT] = 0.95f;
-        INPUT_PAIRS.Add(new Pair<PartType, Company>(PartType.INPUT, Company.LOGIBLAT));
+        INPUT_PAIRS.Add(new Pair<Type,Company>(typeof(CompInput), Company.LOGIBLAT));
         INPUT[Company.MACROSOFT] = 0.9f;
-        INPUT_PAIRS.Add(new Pair<PartType, Company>(PartType.INPUT, Company.MACROSOFT));
+        INPUT_PAIRS.Add(new Pair<Type,Company>(typeof(CompInput), Company.MACROSOFT));
         INPUT[Company.ORANGE] = 0.85f;
-        INPUT_PAIRS.Add(new Pair<PartType, Company>(PartType.INPUT, Company.ORANGE));
+        INPUT_PAIRS.Add(new Pair<Type,Company>(typeof(CompInput), Company.ORANGE));
         INPUT[Company.MAURADER] = 0.8f;
-        INPUT_PAIRS.Add(new Pair<PartType, Company>(PartType.INPUT, Company.MAURADER));
+        INPUT_PAIRS.Add(new Pair<Type,Company>(typeof(CompInput), Company.MAURADER));
 
         OUTPUT[Company.PHAZER] = 1.0f;
-        OUTPUT_PAIRS.Add(new Pair<PartType, Company>(PartType.OUTPUT, Company.PHAZER));
+        OUTPUT_PAIRS.Add(new Pair<Type,Company>(typeof(CompOutput), Company.PHAZER));
         OUTPUT[Company.ORANGE] = 0.95f;
-        OUTPUT_PAIRS.Add(new Pair<PartType, Company>(PartType.OUTPUT, Company.ORANGE));
+        OUTPUT_PAIRS.Add(new Pair<Type,Company>(typeof(CompOutput), Company.ORANGE));
         OUTPUT[Company.LASUS] = 0.95f;
-        OUTPUT_PAIRS.Add(new Pair<PartType, Company>(PartType.OUTPUT, Company.LASUS));
+        OUTPUT_PAIRS.Add(new Pair<Type,Company>(typeof(CompOutput), Company.LASUS));
         OUTPUT[Company.EDVI] = 0.9f;
-        OUTPUT_PAIRS.Add(new Pair<PartType, Company>(PartType.OUTPUT, Company.EDVI));
+        OUTPUT_PAIRS.Add(new Pair<Type,Company>(typeof(CompOutput), Company.EDVI));
         OUTPUT[Company.LOGIBLAT] = 0.85f;
-        OUTPUT_PAIRS.Add(new Pair<PartType, Company>(PartType.OUTPUT, Company.LOGIBLAT));
+        OUTPUT_PAIRS.Add(new Pair<Type,Company>(typeof(CompOutput), Company.LOGIBLAT));
         OUTPUT[Company.COMPUTECH] = 0.8f;
-        OUTPUT_PAIRS.Add(new Pair<PartType, Company>(PartType.OUTPUT, Company.COMPUTECH));
+        OUTPUT_PAIRS.Add(new Pair<Type,Company>(typeof(CompOutput), Company.COMPUTECH));
 
         NETWORK[Company.CHRONO] = 1.0f;
-        NETWORK_PAIRS.Add(new Pair<PartType, Company>(PartType.NETWORK, Company.CHRONO));
+        NETWORK_PAIRS.Add(new Pair<Type,Company>(typeof(CompNetwork), Company.CHRONO));
         NETWORK[Company.SINGULAR] = 0.95f;
-        NETWORK_PAIRS.Add(new Pair<PartType, Company>(PartType.NETWORK, Company.SINGULAR));
+        NETWORK_PAIRS.Add(new Pair<Type,Company>(typeof(CompNetwork), Company.SINGULAR));
         NETWORK[Company.BOMBAST] = 0.9f;
-        NETWORK_PAIRS.Add(new Pair<PartType, Company>(PartType.NETWORK, Company.BOMBAST));
+        NETWORK_PAIRS.Add(new Pair<Type,Company>(typeof(CompNetwork), Company.BOMBAST));
 
         ranges = new Eras();
+        rand = new System.Random();
     }
 
     public object generatePart(Type partType, Company company)
@@ -213,12 +214,20 @@ public class PartGenerator : MonoBehaviour {
                 company,
                 500.0f * (float)CPU[company] * (float)CPU[company],
                 "Debug",
-                100 * (int)CPU[company],
+                100 * (int)((float)CPU[company] * 100.0f) / 100, 
                 1.0f,
                 rand.Next(ranges.PE1980.cpu_CoresRange.getLeft(), ranges.PE1980.cpu_CoresRange.getRight() + 1),
                 rand.Next(ranges.PE1980.cpu_ClockRange.getLeft(), ranges.PE1980.cpu_ClockRange.getRight() + 1),
                 rand.Next(ranges.PE1980.cpu_BitsRange.getLeft(), ranges.PE1980.cpu_BitsRange.getRight() + 1)
                 );
+
+            //returnPart = new CPU(generatePartName(partType, company), 
+            //    company, 
+            //    500.0f * (float)CPU[company] * (float)CPU[company], 
+            //    "Debug", 
+            //    100 * (int)((float)CPU[company] * 100.0f) / 100, 
+            //    1.0f,
+            //    rand.Next(ranges.PE1980.cpu_CoresRange.getLeft(), ranges.PE1980.cpu_CoresRange.getRight() + 1), 1, 1);
 
         }
         else if (partType == typeof(GPU))
@@ -227,7 +236,7 @@ public class PartGenerator : MonoBehaviour {
                 company,
                  500.0f * (float)GPU[company] * (float)GPU[company],
                 "Debug",
-                200 * (int)GPU[company],
+                200 * (int)((float)GPU[company] * 100.0f) / 100, 
                 1.0f,
                 rand.Next(ranges.PE1980.gpu_MegaflopsRange.getLeft(), ranges.PE1980.gpu_MegaflopsRange.getRight() + 1),
                 rand.Next(ranges.PE1980.gpu_MemoryRange.getLeft(), ranges.PE1980.gpu_MemoryRange.getRight() + 1)
@@ -239,7 +248,7 @@ public class PartGenerator : MonoBehaviour {
                 company,
                  500.0f * (float)HDD[company] * (float)HDD[company],
                 "Debug",
-                5 * (int)HDD[company],
+                5 * (int)((float)HDD[company] * 100.0f) / 100,
                 1.0f,
                 rand.Next(ranges.PE1980.hdd_SizeRange.getLeft(), ranges.PE1980.hdd_SizeRange.getRight() + 1),
                 rand.Next(ranges.PE1980.hdd_SpeedRange.getLeft(), ranges.PE1980.hdd_SpeedRange.getRight() + 1)
@@ -251,7 +260,7 @@ public class PartGenerator : MonoBehaviour {
                 company,
                  500.0f * (float)RAM[company] * (float)RAM[company],
                 "Debug",
-                5 * (int)RAM[company],
+                5 * (int)((float)RAM[company] * 100.0f) / 100,
                 1.0f,
                 rand.Next(ranges.PE1980.ram_SizeRange.getLeft(), ranges.PE1980.ram_SizeRange.getRight() + 1),
                 rand.Next(ranges.PE1980.ram_SpeedRange.getLeft(), ranges.PE1980.ram_SpeedRange.getRight() + 1),
@@ -264,7 +273,7 @@ public class PartGenerator : MonoBehaviour {
                 company,
                  500.0f * (float)INPUT[company] * (float)INPUT[company],
                 "Debug",
-                5 * (int)INPUT[company],
+                5 * (int)((float)INPUT[company] * 100.0f) / 100,
                 1.0f,
                 rand.Next(ranges.PE1980.input_DPIRange.getLeft(), ranges.PE1980.input_DPIRange.getRight() + 1),
                 rand.Next(ranges.PE1980.input_PollingRange.getLeft(), ranges.PE1980.input_PollingRange.getRight() + 1),
@@ -277,7 +286,7 @@ public class PartGenerator : MonoBehaviour {
                 company,
                  500.0f * (float)OUTPUT[company] * (float)OUTPUT[company],
                 "Debug",
-                50 * (int)OUTPUT[company],
+                50 * (int)((float)OUTPUT[company] * 100.0f) / 100,
                 1.0f,
                 rand.Next(ranges.PE1980.output_ResolutionRange.getLeft(), ranges.PE1980.output_ResolutionRange.getRight() + 1),
                 rand.Next(ranges.PE1980.output_RefreshRange.getLeft(), ranges.PE1980.output_RefreshRange.getRight() + 1),
@@ -290,7 +299,7 @@ public class PartGenerator : MonoBehaviour {
                 company,
                  500.0f * (float)NETWORK[company] * (float)NETWORK[company],
                 "Debug",
-                0 * (int)NETWORK[company],
+                0,
                 1.0f,
                 rand.Next(2) == 0 ? ranges.PE1980.network_TypeRange.getLeft() : ranges.PE1980.network_TypeRange.getRight(),
                 rand.Next(ranges.PE1980.network_PingRange.getLeft(), ranges.PE1980.network_PingRange.getRight() + 1),
@@ -303,7 +312,7 @@ public class PartGenerator : MonoBehaviour {
                 company,
                  500.0f * (float)PSU[company] * (float)PSU[company],
                 "Debug",
-                0 * (int)PSU[company],
+                0,
                 1.0f,
                 rand.Next(ranges.PE1980.pSupply_WattageRange.getLeft(), ranges.PE1980.pSupply_WattageRange.getRight() + 1)
                 );
@@ -314,7 +323,7 @@ public class PartGenerator : MonoBehaviour {
                 company,
                  500.0f * (float)CHASSIS[company] * (float)CHASSIS[company],
                 "Debug",
-                0 * (int)CHASSIS[company],
+                0,
                 1.0f,
                 rand.Next(ranges.PE1980.chassis_CoolRange.getLeft(), ranges.PE1980.chassis_CoolRange.getRight() + 1)
                 );
@@ -388,6 +397,10 @@ public class PartGenerator : MonoBehaviour {
         else if (partType == typeof(Chassis))
         {
             partName = "Chassis";
+        }
+        else if (partType == typeof(Motherboard))
+        {
+            partName = "Motherboard";
         }
 
         return companyName + " " + partName;

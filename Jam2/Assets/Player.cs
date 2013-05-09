@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public ArrayList storeFront;
     public PlayerGUIState gameState = PlayerGUIState.MAIN_SCREEN;
     public string DEBUG_INTERFACE = "Debug";
+    public Shop shop;
 
     private Vector2 scrollPos;
 
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     {
         funds = 3000.0f;
         storeFront = new ArrayList();
+        shop = new Shop();
     }
 
     void OnGUI()
@@ -82,37 +84,81 @@ public class Player : MonoBehaviour
             
             mobo = returnMobo;
         }
-        if (GUI.Button(new Rect(35, 90, 150, 20), "Go to Storefront"))
+        if (GUI.Button(new Rect(35, 90, 150, 20), "Go to Store"))
         {
             gameState = PlayerGUIState.STORE_SCREEN;
         }
-        if (GUI.Button(new Rect(35, 120, 150, 20), "Make Me Some Parts!"))
+        if (GUI.Button(new Rect(35, 120, 150, 20), "Populate Store"))
         {
-            CPU debugCPU = new CPU("Hammond DebugHammer 750XL", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 30, 0, 1, 6, 32);
-            GPU debugGPU = new GPU("Zhu Industries Mothra 8800", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 20, 0, 3, 1);
-            HDD debugHDD = new HDD("DataPlatter Stack 5", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 2, 0, 10, 8);
-            RAM debugRAM = new RAM("RYAM Interceptor 1 MB", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 1, 0, 1, 10, 1);
-            PowerSupply debugPower = new PowerSupply("ArEmEs 200W Power Supply", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 200);
-            CompInput debugInput = new CompInput("Cobra Katana", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 50, 60, false);
-            CompOutput debugOutput = new CompOutput("AudiVisual AV2350", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 320, 30, 5);
-            CompNetwork debugNet = new CompNetwork("Digiline Dial-up Package", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, NetworkType.DIALUP, 40, 4);
-            Chassis debugChassis = new Chassis("CompuTech Tower of Power", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 10);
+            //CPU debugCPU = new CPU("Hammond DebugHammer 750XL", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 30, 0, 1, 6, 32);
+            //GPU debugGPU = new GPU("Zhu Industries Mothra 8800", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 20, 0, 3, 1);
+            //HDD debugHDD = new HDD("DataPlatter Stack 5", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 2, 0, 10, 8);
+            //RAM debugRAM = new RAM("RYAM Interceptor 1 MB", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 1, 0, 1, 10, 1);
+            //PowerSupply debugPower = new PowerSupply("ArEmEs 200W Power Supply", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 200);
+            //CompInput debugInput = new CompInput("Cobra Katana", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 50, 60, false);
+            //CompOutput debugOutput = new CompOutput("AudiVisual AV2350", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 320, 30, 5);
+            //CompNetwork debugNet = new CompNetwork("Digiline Dial-up Package", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, NetworkType.DIALUP, 40, 4);
+            //Chassis debugChassis = new Chassis("CompuTech Tower of Power", Company.COMPUTECH, 125.0f, DEBUG_INTERFACE, 0, 0, 10);
 
-            GPU badGPU = new GPU("Bad GPU", Company.COMPUTECH, 125.0f, "Pudding Cup Interface", 20, 0, 3, 1);
-            storeFront.Add(debugCPU);
-            storeFront.Add(debugGPU);
-            storeFront.Add(debugRAM);
-            storeFront.Add(debugHDD);
-            storeFront.Add(debugPower);
-            storeFront.Add(debugInput);
-            storeFront.Add(debugOutput);
-            storeFront.Add(debugNet);
-            storeFront.Add(debugChassis);
+            shop.generateInventory();
+
+            foreach (Motherboard part in shop.moboInventory)
+            {
+                storeFront.Add(part);
+            }
+            foreach (Part part in shop.cpuInventory)
+            {
+                storeFront.Add(part);
+            }
+            foreach (Part part in shop.gpuInventory)
+            {
+                storeFront.Add(part);
+            }
+            foreach (Part part in shop.ramInventory)
+            {
+                storeFront.Add(part);
+            }
+            foreach (Part part in shop.hddInventory)
+            {
+                storeFront.Add(part);
+            }
+            foreach (Part part in shop.inputInventory)
+            {
+                storeFront.Add(part);
+            }
+            foreach (Part part in shop.outputInventory)
+            {
+                storeFront.Add(part);
+            }
+            foreach (Part part in shop.pSupplyInventory)
+            {
+                storeFront.Add(part);
+            }
+            foreach (Part part in shop.chassisInventory)
+            {
+                storeFront.Add(part);
+            }
+            foreach (Part part in shop.networkInventory)
+            {
+                storeFront.Add(part);
+            }
+
+            //GPU badGPU = new GPU("Bad GPU", Company.COMPUTECH, 125.0f, "Pudding Cup Interface", 20, 0, 3, 1);
+            //storeFront.Add(debugCPU);
+            //storeFront.Add(debugGPU);
+            //storeFront.Add(debugRAM);
+            //storeFront.Add(debugHDD);
+            //storeFront.Add(debugPower);
+            //storeFront.Add(debugInput);
+            //storeFront.Add(debugOutput);
+            //storeFront.Add(debugNet);
+            //storeFront.Add(debugChassis);
         }
-        if (GUI.Button(new Rect(35, 150, 150, 20), "Go back to Rig Viewing Screen"))
+        if (GUI.Button(new Rect(35, 150, 150, 20), "View Rig"))
         {
             gameState = PlayerGUIState.MAIN_SCREEN;
         }
+        GUI.TextField(new Rect(35, 180, 150, 20), "Money: $" + funds);
     }
     
     void renderComputerInfoBox(float left, float top, float width, float height, float textAreaHeight, float textAreaMargin, Motherboard mobo)
@@ -282,64 +328,76 @@ public class Player : MonoBehaviour
             GUI.Button(new Rect(left, top + 3 * (height + margin), width, height), "RAM: None");
         }
 
+        if (mobo.hdd != null)
+        {
+            if (GUI.Button(new Rect(left, top + 4 * (height + margin), width, height), "HDD: " + mobo.hdd.name))
+            {
+                viewPart = mobo.hdd;
+            }
+        }
+        else
+        {
+            GUI.Button(new Rect(left, top + 4 * (height + margin), width, height), "HDD: None");
+        }
+
         if (mobo.pSupply != null)
         {
-            if(GUI.Button(new Rect(left, top + 4 * (height + margin), width, height), "Power Supply: " + mobo.pSupply.name))
+            if(GUI.Button(new Rect(left, top + 5 * (height + margin), width, height), "Power Supply: " + mobo.pSupply.name))
             {
                 viewPart = mobo.pSupply;
             }
         }
         else
         {
-            GUI.Button(new Rect(left, top + 4 * (height + margin), width, height), "Power Supply: None");
+            GUI.Button(new Rect(left, top + 5 * (height + margin), width, height), "Power Supply: None");
         }
 
         if (mobo.input != null)
         {
-            if(GUI.Button(new Rect(left, top + 5 * (height + margin), width, height), "Input: " + mobo.input.name))
+            if(GUI.Button(new Rect(left, top + 6 * (height + margin), width, height), "Input: " + mobo.input.name))
             {
                 viewPart = mobo.input;
             }
         }
         else
         {
-            GUI.Button(new Rect(left, top + 5 * (height + margin), width, height), "Input: None");
+            GUI.Button(new Rect(left, top + 6 * (height + margin), width, height), "Input: None");
         }
 
         if (mobo.output != null)
         {
-            if(GUI.Button(new Rect(left, top + 6 * (height + margin), width, height), "Output: " + mobo.output.name))
+            if(GUI.Button(new Rect(left, top + 7 * (height + margin), width, height), "Output: " + mobo.output.name))
             {
                 viewPart = mobo.output;
             }
         }
         else
         {
-            GUI.Button(new Rect(left, top + 6 * (height + margin), width, height), "Output: None");
+            GUI.Button(new Rect(left, top + 7 * (height + margin), width, height), "Output: None");
         }
 
         if (mobo.network != null)
         {
-            if(GUI.Button(new Rect(left, top + 7 * (height + margin), width, height), "Network Service: " + mobo.network.name))
+            if(GUI.Button(new Rect(left, top + 8 * (height + margin), width, height), "Network Service: " + mobo.network.name))
             {
                 viewPart = mobo.network;
             }
         }
         else
         {
-            GUI.Button(new Rect(left, top + 7 * (height + margin), width, height), "Network Service: None");
+            GUI.Button(new Rect(left, top + 8 * (height + margin), width, height), "Network Service: None");
         }
 
         if (mobo.chassis != null)
         {
-            if (GUI.Button(new Rect(left, top + 8 * (height + margin), width, height), "Chassis: " + mobo.chassis.name))
+            if (GUI.Button(new Rect(left, top + 9 * (height + margin), width, height), "Chassis: " + mobo.chassis.name))
             {
                 viewPart = mobo.chassis;
             }
         }
         else
         {
-            GUI.Button(new Rect(left, top + 8 * (height + margin), width, height), "Chassis: None");
+            GUI.Button(new Rect(left, top + 9 * (height + margin), width, height), "Chassis: None");
         }
     }
 
@@ -348,23 +406,40 @@ public class Player : MonoBehaviour
         renderPartStatistics(left, top, width, height, viewPart);
         if(GUI.Button(new Rect(left + 30, top + 10, 100, 20), "Buy Part"))
         {
-            buyPart((Part)part);
+            if(part.GetType() == typeof(Motherboard))
+            {
+                buyPart((Motherboard) part);
+            }
+            else
+            {
+                buyPart((Part) part);
+            }
         }
     }
 
     void storeScreen()
     {
         renderDebugMenu();
-        GUILayout.BeginArea(new Rect(300, 10, 300, 800));
+        GUILayout.BeginArea(new Rect(275, 10, 400, 600));
         {
             scrollPos = GUILayout.BeginScrollView(scrollPos);
             if (storeFront.Count > 0)
             {
-                foreach (Part part in storeFront)
+                foreach (object part in storeFront)
                 {
-                    if (GUILayout.Button("Part: " + part.name + " | Cost: $" + part.price))
+                    if (typeof(Part).IsAssignableFrom(part.GetType()))
                     {
-                        viewPart = part;
+                        if (GUILayout.Button("Part: " + ((Part)part).name + " | Cost: $" + ((Part)part).price))
+                        {
+                            viewPart = part;
+                        }
+                    }
+                    else if (part.GetType() == typeof(Motherboard))
+                    {
+                        if (GUILayout.Button("Part: " + ((Motherboard)part).name + " | Cost: $" + ((Motherboard)part).price))
+                        {
+                            viewPart = part;
+                        }
                     }
                 }
             }
@@ -373,7 +448,7 @@ public class Player : MonoBehaviour
         GUILayout.EndArea();
         if (viewPart != null)
         {
-            renderBuyDialog(600, 20, 300, 400, viewPart);
+            renderBuyDialog(700, 20, 250, 400, viewPart);
         }
     }
     //void renderInfoPane(float left, float top, float width, float height
@@ -430,6 +505,7 @@ public class Player : MonoBehaviour
                 {
                     funds -= part.price;
                     print("Part purchased! Remaining Funds: " + funds);
+                    storeFront.Remove(part);
                 }
                 else
                 {
@@ -445,6 +521,21 @@ public class Player : MonoBehaviour
         else
         {
             print("You have no motherboard on which to plug things in to test if they work!");
+        }
+    }
+
+    void buyPart(Motherboard part)
+    {
+        if (part.price < funds)
+        {
+            mobo = part;
+            funds -= part.price;
+            print("Part purchased! Remaining Funds: " + funds);
+            storeFront.Remove(part);
+        }
+        else
+        {
+            print("You must construct additional cash piles!");
         }
     }
 }
